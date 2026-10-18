@@ -84,6 +84,7 @@ The home page and `/preorder` share a form: name, phone, pickup date, half-dozen
 | `PREORDER_SMS_FROM` | E.164 Bland agent number the alert is sent from |
 | `BLAND_API_KEY` | Bland API key, only for `SMS_PROVIDER=bland` |
 | `NEXT_PUBLIC_SITE_URL` | Optional canonical origin. On Vercel, the deployment host is used when this is blank |
+| `ALLOW_INDEXING` | Set to `true` to allow search indexing. Any other value, including blank, blocks it. Read at build time, so redeploy after changing it |
 
 If the provider or its credentials are missing, the API **does not crash**. It logs the pre-order and returns success telling the customer to also text the shop line. Copy `.env.example` to `.env.local` when you are ready to send for real.
 
@@ -92,6 +93,14 @@ If the provider or its credentials are missing, the API **does not crash**. It l
 Inside the day’s window in `hours.byDay`, the call button shows the shop phone. Outside that window it switches to “We're closed — call or text, our assistant can take your pre-order” and still dials the shop line until `afterHoursPhone` is set. The clock is `America/New_York`, including daylight saving. Monday–Friday that window is 7 AM–1 PM. Saturday and Sunday it is 7 AM–4 PM.
 
 ## SEO
+
+Search indexing is off until the shop owner approves. `ALLOW_INDEXING` must be the exact string `true`. While it is not:
+
+- `robots.txt` disallows every path.
+- The root metadata robots tag is `noindex, nofollow`.
+- Every route sends `X-Robots-Tag: noindex, nofollow`.
+
+Set `ALLOW_INDEXING=true` and redeploy to restore the public robots file (allow `/`, disallow `/api/`, and publish the sitemap) and indexable metadata. The header is omitted in that case.
 
 Metadata, Open Graph, and Twitter images are generated from `site.ts`. `src/app/sitemap.ts`, `src/app/robots.ts`, and `src/app/icon.svg` (a purple bagel) ship with the app. Bakery / LocalBusiness JSON-LD includes opening hours for each day that has both an open and a close. FAQPage JSON-LD is added only when `faq` has entries.
 

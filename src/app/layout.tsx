@@ -10,6 +10,7 @@ import { focusRing } from "@/components/styles";
 import { site } from "@/content/site";
 import type { Palette } from "@/content/types";
 import { cn } from "@/lib/cn";
+import { allowIndexing } from "@/lib/indexing";
 import { getSiteUrl } from "@/lib/site-url";
 
 import "./globals.css";
@@ -81,7 +82,9 @@ export const metadata: Metadata = {
     description: site.description,
   },
   alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  robots: allowIndexing()
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
 };
 
 export const viewport: Viewport = {
