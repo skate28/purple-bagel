@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+  Seed fallbacks. Live values are set from src/content/site.ts on <html>.
+  Keep these in sync with the palette hints when you change the seed.
+*/
+:root {
+  --pb-ink: #2d1652;
+  --pb-brand: #2d1652;
+  --pb-brand-deep: #3f2470;
+  --pb-brand-bright: #4a4cb0;
+  --pb-lilac: #f1eaf7;
+  --pb-cream: #fffdf8;
+  --pb-cream-deep: #f1eaf7;
+  --pb-sesame: #d08a50;
+  --pb-paper: #fffdf8;
+  --pb-salt: #f1eaf7;
+  --pb-accent: #f28a1e;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-ink: var(--pb-ink);
+  --color-brand: var(--pb-brand);
+  --color-brand-deep: var(--pb-brand-deep);
+  --color-brand-bright: var(--pb-brand-bright);
+  --color-lilac: var(--pb-lilac);
+  --color-cream: var(--pb-cream);
+  --color-cream-deep: var(--pb-cream-deep);
+  --color-sesame: var(--pb-sesame);
+  --color-paper: var(--pb-paper);
+  --color-salt: var(--pb-salt);
+  --color-accent: var(--pb-accent);
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-oswald), Impact, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-script: var(--font-pacifico), cursive;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--pb-cream);
+  color: var(--pb-ink);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--pb-brand);
+  color: var(--pb-paper);
+}
